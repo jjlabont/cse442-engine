@@ -4,4 +4,8 @@ GOAT-Engine.vcxproj.filters
 GOAT-Engine.vcxproj.user
 Debug/
 Release/
+<<<<<<< HEAD
 Driver.cpp
+=======
+Driver.cpp
+>>>>>>> 3483cc9a8699506689f2e532b2c1aad616ee9ca9
