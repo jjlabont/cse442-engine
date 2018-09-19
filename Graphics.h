@@ -70,8 +70,11 @@ struct Sprite {
 		this->y = y;
 		this->w = w;
 		this->h = h;
+		
+		rotation = 0;
 	}
 	float x, y, w, h;
+	float rotation;
 };
 
 struct ShaderProgramSource {
@@ -86,7 +89,7 @@ private:
 	unsigned int vbo;
 	unsigned int ibo;
 
-	std::vector<Sprite> drawBatch;
+	std::vector<Sprite*> drawBatch;
 	std::vector<unsigned int> shader;
 
 public:
@@ -95,6 +98,6 @@ public:
 
 	void addShader(const std::string& filepath);
 
-	void queueSprite(Sprite sprite);
+	void queueSprite(Sprite* sprite);
 	void draw();
 };

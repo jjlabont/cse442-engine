@@ -60,12 +60,12 @@ GraphicSource::~GraphicSource() {
 }
 
 void GraphicSource::addShader(const std::string& filepath) {
-	ShaderProgramSource source = ShaderProgramSource("res/shaders/basic.shader");
+	ShaderProgramSource source = ShaderProgramSource(filepath);
 	shader.push_back(CreateShader(source.vSource, source.fSource));
 	glUseProgram(shader[0]);
 }
 
-void GraphicSource::queueSprite(Sprite sprite) {
+void GraphicSource::queueSprite(Sprite* sprite) {
 	drawBatch.push_back(sprite);
 }
 
@@ -75,20 +75,20 @@ void GraphicSource::draw() {
 	for (unsigned int i = 0; i < drawBatch.size(); i++) {
 
 		//index 0
-		positions.push_back(drawBatch[i].x);
-		positions.push_back(drawBatch[i].y);
+		positions.push_back(drawBatch[i]->x);
+		positions.push_back(drawBatch[i]->y);
 
 		//index 1
-		positions.push_back(drawBatch[i].x + drawBatch[i].w);
-		positions.push_back(drawBatch[i].y);
+		positions.push_back(drawBatch[i]->x + drawBatch[i]->w);
+		positions.push_back(drawBatch[i]->y);
 
 		//index 2
-		positions.push_back(drawBatch[i].x + drawBatch[i].w);
-		positions.push_back(drawBatch[i].y + drawBatch[i].h);
+		positions.push_back(drawBatch[i]->x + drawBatch[i]->w);
+		positions.push_back(drawBatch[i]->y + drawBatch[i]->h);
 
 		//index 3
-		positions.push_back(drawBatch[i].x);
-		positions.push_back(drawBatch[i].y + drawBatch[i].h);
+		positions.push_back(drawBatch[i]->x);
+		positions.push_back(drawBatch[i]->y + drawBatch[i]->h);
 
 		indicies.push_back(i * 4 + 0);
 		indicies.push_back(i * 4 + 1);
@@ -106,7 +106,7 @@ void GraphicSource::draw() {
 
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, numSprites * 6 * sizeof(unsigned int), &indicies[0], GL_STATIC_DRAW);
 
-	glDrawElements(GL_TRIANGLES, 6 * numSprites, GL_UNSIGNED_INT, nullptr);
+	GLCall(glDrawElements(GL_TRIANGLES, 6 * numSprites, GL_UNSIGNED_INT, nullptr));
 
 	drawBatch.clear();
 }
