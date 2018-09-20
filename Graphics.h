@@ -86,15 +86,23 @@ struct ShaderProgramSource {
 
 class GraphicSource {
 private:
+	unsigned int vao;
 	unsigned int vbo;
 	unsigned int ibo;
-
+	unsigned int colorLocation;
+	
 	std::vector<Sprite*> drawBatch;
 	std::vector<unsigned int> shader;
 
 public:
+	float r;
+	float g;
+	float b;
+	float a;
 	GraphicSource();
 	~GraphicSource();
+
+	void init();
 
 	void addShader(const std::string& filepath);
 
