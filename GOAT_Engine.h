@@ -12,8 +12,8 @@ private:
 	GLFWwindow* window;
 	unsigned int windowWidth;
 	unsigned int windowHeight; 
-	double lastTime = 0;
-	double nbFrames = 0;
+	double lastTime = 0; //last time since frame count initialized for frame counter
+	double numFrames = 0; //number of frames
 
 	std::vector<Sprite*> sprites;
 

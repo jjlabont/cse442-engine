@@ -33,18 +33,21 @@ GOAT_Engine::GOAT_Engine(int w, int h, const char* title) {
 	this->window = windowTemp;
 }
 
+/*
+Calculates number of frames per second (FPS) and milliseconds per frame (ms/frame)
+and ouputs them to console
+16.6 ms/frame is about 60fps
+*/
 void GOAT_Engine::showFPS() {
 	double currentTime = glfwGetTime();
-	double delta = currentTime - lastTime;
-	nbFrames++;
+	double delta = currentTime - lastTime; //delta is change in time
+	numFrames++;// increment frames 
 	if (delta >= 1.0) { // If last cout was more than 1 sec ago
-		std::cout << "ms/frame: " << 1000.0 / double(nbFrames) << std::endl;
 
-		double fps = double(nbFrames) / delta;
-
-		
+		std::cout << "ms/frame: " << 1000.0 / double(numFrames) << std::endl;
+		double fps = double(numFrames) / delta;
 		std::cout << "FPS: " << fps << std::endl;
-		nbFrames = 0;
+		numFrames = 0;
 		lastTime = currentTime;
 	}
 }
