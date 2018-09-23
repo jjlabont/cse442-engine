@@ -3,16 +3,15 @@
 
 class Entity {
 private:
+	
+
+public:
 	float xPosition;
 	float yPosition;
 	float width;
 	float height;
 
-public:
-
 	Entity(float xPos, float yPos, float w, float h);
+	~Entity();
 
-	std::tuple<float, float> getPosition();
-
-	bool setPosition(float xPos, float yPos);
 };
