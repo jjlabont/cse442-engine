@@ -19,6 +19,7 @@ private:
 public:
 
 	//make private later
+
 	GraphicSource graphicSource;
 
 	GOAT_Engine(int w, int h, const char* title);
