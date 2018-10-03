@@ -1,8 +1,10 @@
 #include "Entity.h"
 
-Entity::Entity(float xPos, float yPos, float h, float w) {
-	xPosition = xPos;
-	yPosition = yPos;
-	height = h;
-	width = w;
+Entity::Entity(Sprite s1, float cl) : sprite(s1) {
+	//xPos = x;
+	//yPos = y;
+	//hPos = h;
+	//wPos = w;
+	clayer = cl;
+
 }

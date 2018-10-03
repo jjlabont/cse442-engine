@@ -1,13 +1,12 @@
 #include "CollisionHandler.h"
 
-bool isCollision(Entity& e1, Entity& e2) {
-	//bool sameLayer = false;
-	
+bool isCollision(Entity& e1, Entity& e2) {	
 	//Checks to see if e1 drawing and e2 drawing overlap
-	if ((e1.x < e2.x + e2.w) && (e1.x + e1.w > e2.x) && (e1.y < e2.y + e2.h) && (e1.y + e1.h > e2.y)) {
+	if ((e1.sprite.x < e2.sprite.x + e2.sprite.w) && (e1.sprite.x + e1.sprite.w > e2.sprite.x) && (e1.sprite.y < e2.sprite.y + e2.sprite.h) 
+		&& (e1.sprite.y + e1.sprite.h > e2.sprite.y)) {
 	//Checks to see if e1 collision layer and e2 collision layer are the same
 		//if they are, e1 and e2 are on same plane, therefore "collide"
-		if (e1.cl == e2.cl) {
+		if (e1.clayer == e2.clayer) {
 			return true;
 		}
 	}
@@ -15,3 +14,6 @@ bool isCollision(Entity& e1, Entity& e2) {
 		return false;
 	}
 }
+
+	//(e1.sprite.x < e2.sprite.x + e2.sprite.w) && (e1.sprite.x + e1.sprite.w > e2.sprite.x) &&
+	//(e1.sprite.y < e2.sprite.y + e2.sprite.h) && (e1.sprite.y + e1.sprite.h > e2.sprite.y)
