@@ -2,6 +2,7 @@
 
 GOAT_Engine::GOAT_Engine(int w, int h, const char* title) {
 	GLFWwindow* windowTemp;
+
 	/* Initialize the library */
 	if (!glfwInit()) {
 		std::cout << "GLFW [init] failed!" << std::endl;
@@ -21,7 +22,7 @@ GOAT_Engine::GOAT_Engine(int w, int h, const char* title) {
 	/* Make the window's context current */
 	glfwMakeContextCurrent(windowTemp);
 	
-	glfwSwapInterval(1);
+	
 
 	if (glewInit() != GLEW_OK) {
 		std::cout << "Error loading GLEW!" << std::endl;
@@ -52,6 +53,22 @@ void GOAT_Engine::showFPS() {
 	}
 }
 
+//limits amount of fps
+void GOAT_Engine::limitFPS() {
+	//if current frame is rendered and it hasn't been the amount of time for the next frame program will wait
+	while (glfwGetTime() < nextFrameTime + 1.0 / maxFPS) {
+		//Do nothing
+	}
+	//set nextFrames time
+	nextFrameTime += 1.0 / maxFPS;
+
+}
+
+//sets maximum amount of FPS
+void GOAT_Engine::setMaxFPS(double FPS) {
+	maxFPS = FPS;
+}
+
 GOAT_Engine::~GOAT_Engine() {
 
 }
@@ -76,6 +93,8 @@ void GOAT_Engine::draw() {
 
 	/* Poll for and process events */
 	glfwPollEvents();
+
+	limitFPS();
 }
 
 void GOAT_Engine::terminate() {
