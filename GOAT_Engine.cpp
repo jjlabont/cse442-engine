@@ -1,6 +1,7 @@
 #include "GOAT_Engine.h"
 
-GOAT_Engine::GOAT_Engine(int w, int h, const char* title) {
+GOAT_Engine::GOAT_Engine(int w, int h, const char* title, unsigned int fps) {
+	timer = EngineTimer(fps);
 	GLFWwindow* windowTemp;
 
 	/* Initialize the library */
@@ -34,41 +35,6 @@ GOAT_Engine::GOAT_Engine(int w, int h, const char* title) {
 	this->window = windowTemp;
 }
 
-/*
-Calculates number of frames per second (FPS) and milliseconds per frame (ms/frame)
-and ouputs them to console
-16.6 ms/frame is about 60fps
-*/
-void GOAT_Engine::showFPS() {
-	double currentTime = glfwGetTime();
-	double delta = currentTime - lastTime; //delta is change in time
-	numFrames++;// increment frames 
-	if (delta >= 1.0) { // If last cout was more than 1 sec ago
-
-		std::cout << "ms/frame: " << 1000.0 / double(numFrames) << std::endl;
-		double fps = double(numFrames) / delta;
-		std::cout << "FPS: " << fps << std::endl;
-		numFrames = 0;
-		lastTime = currentTime;
-	}
-}
-
-//limits amount of fps
-void GOAT_Engine::limitFPS() {
-	//if current frame is rendered and it hasn't been the amount of time for the next frame program will wait
-	while (glfwGetTime() < nextFrameTime + 1.0 / maxFPS) {
-		//Do nothing
-	}
-	//set nextFrames time
-	nextFrameTime += 1.0 / maxFPS;
-
-}
-
-//sets maximum amount of FPS
-void GOAT_Engine::setMaxFPS(double FPS) {
-	maxFPS = FPS;
-}
-
 GOAT_Engine::~GOAT_Engine() {
 
 }
@@ -79,6 +45,16 @@ bool GOAT_Engine::shouldClose() {
 
 void GOAT_Engine::addSprite(Sprite* sprite) {
 	sprites.push_back(sprite);
+}
+
+//displays FPS to console
+void GOAT_Engine::showFPS() {
+	timer.showFPS();
+}
+
+//sets FPS for game to run at
+void GOAT_Engine::setFPS(unsigned int fps) {
+	timer.setFPS(fps);
 }
 
 void GOAT_Engine::draw() {
@@ -94,7 +70,7 @@ void GOAT_Engine::draw() {
 	/* Poll for and process events */
 	glfwPollEvents();
 
-	limitFPS();
+	timer.limitFPS();
 }
 
 void GOAT_Engine::terminate() {
