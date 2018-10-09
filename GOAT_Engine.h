@@ -13,15 +13,13 @@ private:
 	unsigned int windowWidth;
 	unsigned int windowHeight; 
 	
+	Renderer renderer;
+	Shader* shader;
+	Shader* shader2;
 
 	std::vector<Sprite*> sprites;
 
 public:
-
-	//make private later
-
-	GraphicSource graphicSource;
-
 	GOAT_Engine(int w, int h, const char* title);
 	~GOAT_Engine();
 

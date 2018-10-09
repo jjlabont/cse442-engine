@@ -8,14 +8,8 @@
 #include <GLFW/glfw3.h>
 #include <vector>
 
+#include "OpenGLErrorHandling.h"
 #include "Shader.h"
-
-#define ASSERT(x) if (!(x)) __debugbreak();
-#define GLCall(x) GLClearError();\
-	x;\
-	ASSERT(glLogCall(#x, __FILE__, __LINE__))
-void GLClearError();
-bool glLogCall(const char* function, const char* file, int line);
 
 unsigned int compileShader(unsigned int type, const std::string& source);
 unsigned int CreateShader(const std::string& vertexShader, const std::string& fragmentShader);
@@ -33,13 +27,6 @@ struct Sprite {
 	float rotation;
 };
 
-struct ShaderProgramSource {
-	ShaderProgramSource(const std::string& filepath);
-
-	std::string vSource;
-	std::string fSource;
-};
-
 class VertexBuffer {
 private:
 	unsigned int m_RendererID;
@@ -52,8 +39,8 @@ public:
 };
 
 struct VertexBufferElement {
-	unsigned int count;
 	unsigned int type;
+	unsigned int count;
 	unsigned char normalized;
 
 	static unsigned int getSizeOfType(unsigned int type) {
@@ -132,37 +119,13 @@ public:
 	void unbind() const;
 };
 
-class GraphicSource {
-private:
-	unsigned int vao;
-	unsigned int vbo;
-	unsigned int ibo;
-	unsigned int colorLocation;
-	
-	std::vector<Sprite*> drawBatch;
-	std::vector<unsigned int> shader;
-
-public:
-	float r;
-	float g;
-	float b;
-	float a;
-	GraphicSource();
-	~GraphicSource();
-
-	void init();
-
-	void addShader(const std::string& filepath);
-
-	void queueSprite(Sprite* sprite);
-	void draw();
-};
-/*
 class Renderer {
 private:
 
 public:
 	Renderer();
 	~Renderer();
+
+	void clear() const;
 	void draw(const VertexArray& va, const IndexBuffer& ib, const Shader& shader) const;
-};*/
+};

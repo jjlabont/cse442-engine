@@ -1,9 +1,11 @@
 #pragma once
 #include <string>
 #include <unordered_map>
+#include <fstream>
+#include <sstream>
 
-#include "Graphics.h"
-/*
+#include "OpenGLErrorHandling.h"
+
 struct ShaderProgramSource {
 	std::string VertexSource;
 	std::string FragmentSource;
@@ -21,6 +23,7 @@ private:
 	unsigned int getUniformLocation(const std::string& name);
 
 public:
+	Shader() { };
 	Shader(const std::string& filepath);
 	~Shader();
 
@@ -29,4 +32,4 @@ public:
 
 	//set uniforms
 	void setUniform4f(const std::string& name, float v0, float v1, float v2, float v3);
-};*/
+};
