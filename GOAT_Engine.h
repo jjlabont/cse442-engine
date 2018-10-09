@@ -10,18 +10,8 @@
 class GOAT_Engine {
 private:
 	GLFWwindow* window;
-	unsigned int windowWidth;
-<<<<<<< HEAD
-	unsigned int windowHeight;
 	EngineTimer timer;
-	std::vector<Sprite*> sprites;
 
-public:
-	GraphicSource graphicSource;
-	GOAT_Engine(int w, int h, const char* title, unsigned int fps = 60);
-=======
-	unsigned int windowHeight; 
-	
 	Renderer renderer;
 	Shader* shader;
 	Shader* shader2;
@@ -29,13 +19,15 @@ public:
 	std::vector<Sprite*> sprites;
 
 public:
-	GOAT_Engine(int w, int h, const char* title);
->>>>>>> opengl-setup
+	GOAT_Engine(int w, int h, const char* title, unsigned int fps = 60);
 	~GOAT_Engine();
-	bool shouldClose();
-	void addSprite(Sprite* sprite);
-	void draw();
+
 	void showFPS();
 	void setFPS(unsigned int fps);
+
+	void draw();
+	void addSprite(Sprite* sprite);
+
+	bool shouldClose();
 	void terminate();
 };

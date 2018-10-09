@@ -45,14 +45,6 @@ GOAT_Engine::~GOAT_Engine() {
 	delete shader;
 }
 
-bool GOAT_Engine::shouldClose() {
-	return glfwWindowShouldClose(window);
-}
-
-void GOAT_Engine::addSprite(Sprite* sprite) {
-	sprites.push_back(sprite);
-}
-
 //displays FPS to console
 void GOAT_Engine::showFPS() {
 	timer.showFPS();
@@ -111,6 +103,14 @@ void GOAT_Engine::draw() {
 	glfwPollEvents();
 
 	timer.limitFPS();
+}
+
+void GOAT_Engine::addSprite(Sprite* sprite) {
+	sprites.push_back(sprite);
+}
+
+bool GOAT_Engine::shouldClose() {
+	return glfwWindowShouldClose(window);
 }
 
 void GOAT_Engine::terminate() {
