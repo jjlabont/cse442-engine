@@ -6,6 +6,7 @@
 #include <GLFW/glfw3.h>
 #include "EngineTimer.h"
 #include "Graphics.h"
+#include "Texture.h"
 
 class GOAT_Engine {
 private:
@@ -17,6 +18,7 @@ private:
 	Shader* shader2;
 
 	std::vector<Sprite*> sprites;
+	Texture* texture;
 
 public:
 	GOAT_Engine(int w, int h, const char* title, unsigned int fps = 60);
