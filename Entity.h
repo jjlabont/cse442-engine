@@ -1,10 +1,19 @@
+#pragma once
+#include <tuple>
 #include "Graphics.h"
 
-Entity::Entity(Sprite sprite, float cl, bool iS) : sprite(sprite) {
-	xPos = sprite.x;
-	yPos = sprite.y;
-	hPos = sprite.h;
-	wPos = sprite.w;
-	clayer = cl;
-	isSolid = iS;
-}
+class Entity {
+private:
+
+public:
+	Sprite sprite;
+	float xPos;
+	float yPos;
+	float wPos;
+	float hPos;
+	float clayer;
+	bool isSolid;
+
+	Entity(Sprite sprite, float clayer, bool isSolid);
+
+};
