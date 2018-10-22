@@ -56,17 +56,22 @@ GOAT_Engine::~GOAT_Engine() {
 	delete texture;
 }
 
-//displays FPS to console
-void GOAT_Engine::showFPS() {
-	timer.showFPS();
-}
-
 //sets FPS for game to run at
 void GOAT_Engine::setFPS(unsigned int fps) {
 	timer.setFPS(fps);
 }
 
+void GOAT_Engine::toggleDebug() {
+	timer.toggleDebug();
+}
+
 void GOAT_Engine::draw() {
+	if (sprites.size() == 0) {
+		renderer.clear();
+		glfwSwapBuffers(window);
+		glfwPollEvents();
+		return;
+	}
 	std::vector<float> positions;
 	std::vector<unsigned int> indices;
 	for (int i = 0; i < sprites.size(); i++) {
@@ -133,7 +138,7 @@ void GOAT_Engine::draw() {
 	/* Poll for and process events */
 	glfwPollEvents();
 
-	timer.limitFPS();
+	timer.update(sprites.size());
 }
 
 void GOAT_Engine::addSprite(Sprite* sprite) {

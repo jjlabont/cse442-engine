@@ -32,8 +32,9 @@ public:
 
 	GOAT_Engine(int w, int h, const char* title, unsigned int fps = 60);
 	~GOAT_Engine();
-	
-	void showFPS();
+
+	void toggleDebug();
+
 	void setFPS(unsigned int fps);
 
 	void draw();
