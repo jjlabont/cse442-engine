@@ -8,10 +8,22 @@ private:
 	double nextFrameTime = 0; //time the next fame should be rendered at
 	double numFrames = 0; //number of frames
 	unsigned int FPS; //cap on frame rate
+	long inGameTime = 0;
+	long realTimeElapsed = 0;
+	bool FPSCounterEnabled = 0;
+
+	void limitFPS();
+	void showFPS();
+
 public:
 	EngineTimer(unsigned int fps = 60);
 	~EngineTimer();
-	void limitFPS();
-	void showFPS();
+
 	void setFPS(unsigned int fps);
+	void toggleFPSDisplay();
+
+	void updateIGT();
+	void updateRealTime();
+	void update();
+	void displayCurrentTimes();
 };

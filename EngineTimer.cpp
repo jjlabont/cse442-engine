@@ -2,11 +2,33 @@
 
 EngineTimer::EngineTimer(unsigned int fps) {
 	FPS = fps;
-}
+} 
 
 EngineTimer::~EngineTimer() {
 
 }
+
+//updates the timer
+void EngineTimer::update() {
+	updateIGT();
+	updateRealTime();
+	limitFPS();
+	showFPS();
+}
+
+void EngineTimer::updateIGT() {
+	// TODO
+}
+
+//toggles if FPS is being displayed
+void EngineTimer::toggleFPSDisplay() {
+	FPSCounterEnabled = !FPSCounterEnabled;
+}
+
+void EngineTimer::updateRealTime() {
+	//TODO
+}
+
 
 /*
 Calculates number of frames per second (FPS) and milliseconds per frame (ms/frame)
@@ -14,16 +36,18 @@ and ouputs them to console
 16.6 ms/frame is about 60fps
 */
 void EngineTimer::showFPS() {
-	double currentTime = glfwGetTime();
-	double delta = currentTime - lastTime; //delta is change in time
-	numFrames++;// increment frames 
-	if (delta >= 1.0) { // If last cout was more than 1 sec ago
+	if (FPSCounterEnabled) {
+		double currentTime = glfwGetTime();
+		double delta = currentTime - lastTime; //delta is change in time
+		numFrames++;// increment frames 
+		if (delta >= 1.0) { // If last cout was more than 1 sec ago
 
-		std::cout << "ms/frame: " << 1000.0 / double(numFrames) << std::endl;
-		double fps = double(numFrames) / delta;
-		std::cout << "FPS: " << fps << std::endl;
-		numFrames = 0;
-		lastTime = currentTime;
+			std::cout << "ms/frame: " << 1000.0 / double(numFrames) << std::endl;
+			double fps = double(numFrames) / delta;
+			std::cout << "FPS: " << fps << std::endl;
+			numFrames = 0;
+			lastTime = currentTime;
+		}
 	}
 }
 
@@ -38,7 +62,14 @@ void EngineTimer::limitFPS() {
 
 }
 
+
 //sets maximum amount of FPS
 void EngineTimer::setFPS(unsigned int fps) {
-	FPS = fps;
+	if (fps <= 0) {
+		//Change to error stack
+		std::cout << "Invalid FPS entered, defaulting to 60FPS" << std::endl;
+		FPS = 60;
+
+	}
+		FPS = fps;
 }

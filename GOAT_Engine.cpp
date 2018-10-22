@@ -56,6 +56,12 @@ void GOAT_Engine::setFPS(unsigned int fps) {
 }
 
 void GOAT_Engine::draw() {
+	if (sprites.size() == 0) {
+		renderer.clear();
+		glfwSwapBuffers(window);
+		glfwPollEvents();
+		return;
+	}
 	std::vector<float> positions;
 	std::vector<unsigned int> indices;
 	for (int i = 0; i < sprites.size(); i++) {
@@ -102,7 +108,7 @@ void GOAT_Engine::draw() {
 	/* Poll for and process events */
 	glfwPollEvents();
 
-	timer.limitFPS();
+	timer.update();
 }
 
 void GOAT_Engine::addSprite(Sprite* sprite) {
