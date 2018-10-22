@@ -2,6 +2,7 @@
 #include <iostream>
 #include <vector>
 
+#include "Input.h"
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include "EngineTimer.h"
@@ -20,16 +21,25 @@ private:
 	std::vector<Sprite*> sprites;
 	Texture* texture;
 
+	unsigned int windowWidth;
+	unsigned int windowHeight;
+	InputSource input;
 public:
+
+
 	GOAT_Engine(int w, int h, const char* title, unsigned int fps = 60);
 	~GOAT_Engine();
-
+	
 	void showFPS();
 	void setFPS(unsigned int fps);
 
 	void draw();
 	void addSprite(Sprite* sprite);
 
+	void pollEvents();
+
 	bool shouldClose();
 	void terminate();
+
+	InputSource& getInput();
 };

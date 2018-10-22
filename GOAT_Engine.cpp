@@ -1,5 +1,6 @@
 #include "GOAT_Engine.h"
 
+
 GOAT_Engine::GOAT_Engine(int w, int h, const char* title, unsigned int fps) {
 	timer = EngineTimer(fps);
 	GLFWwindow* windowTemp;
@@ -46,6 +47,8 @@ GOAT_Engine::GOAT_Engine(int w, int h, const char* title, unsigned int fps) {
 	texture = new Texture("res/images/cool uni.png");
 	texture->bind();
 	shader->setUniform1i("u_Texture", 0);
+
+	input = InputSource(window);
 }
 
 GOAT_Engine::~GOAT_Engine() {
@@ -138,6 +141,10 @@ void GOAT_Engine::addSprite(Sprite* sprite) {
 	sprites.push_back(sprite);
 }
 
+void GOAT_Engine::pollEvents() {
+	input.update();
+}
+
 bool GOAT_Engine::shouldClose() {
 	return glfwWindowShouldClose(window);
 }
@@ -145,3 +152,8 @@ bool GOAT_Engine::shouldClose() {
 void GOAT_Engine::terminate() {
 	glfwTerminate();
  }
+
+InputSource& GOAT_Engine::getInput()
+{
+	return input;
+}
