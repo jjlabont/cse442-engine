@@ -1,18 +1,29 @@
 #include "CollisionHandler.h"
 
 
-//AABB Checking Collision
+//AABB Checking Collision Entity Method
 bool CheckCollision(Entity& e1, Entity& e2) { // AABB - AABB collision
-	bool overlaps = false;
+	bool solid = false;
+	//std::cout << e1.sprite.x << e2.sprite.x << std::endl;
+	std::cout << (e1.sprite.x + e1.sprite.w >= e2.sprite.x) << std::endl;
 	if ((e1.sprite.x + e1.sprite.w >= e2.sprite.x && e2.sprite.x + e2.sprite.w >= e1.sprite.x) && (e1.sprite.y + e1.sprite.h >= e2.sprite.y &&
-		e2.sprite.y + e2.sprite.h >= e1.sprite.y)) {
-		if (e1.clayer == e2.clayer) {
-			overlaps = true;
-			return overlaps;
-		}
+			e2.sprite.y + e2.sprite.h >= e1.sprite.y)) {
+		return true;
 	}
+	return solid;
 }
 
+//original if statement:
+//if ((e1.sprite.x + e1.sprite.w >= e2.sprite.x && e2.sprite.x + e2.sprite.w >= e1.sprite.x) && (e1.sprite.y + e1.sprite.h >= e2.sprite.y &&
+//	e2.sprite.y + e2.sprite.h >= e1.sprite.y)) {
+
+//original layer check
+		//if (e1.clayer == e2.clayer) {
+		//	overlaps = true;
+		//	return overlaps;
+		//}
+
+//AABB Checking Collision Sprite Method
 bool collision(Sprite& s1, Sprite& s2) {
 	bool solid = false;
 
@@ -27,6 +38,10 @@ bool collision(Sprite& s1, Sprite& s2) {
 
 void collisionFix(Sprite& s1, Sprite& s2) {
 
+}
+
+bool isSolid() {
+	return true;
 }
 
 
@@ -70,6 +85,3 @@ void collisionFix(Sprite& s1, Sprite& s2) {
 //	}
 //}
 
-bool isSolid() {
-	return true;
-}
