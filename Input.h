@@ -20,7 +20,7 @@ private:
 
 	float mouseX;
 	float mouseY;
-	bool mousePressed[NUM_MOUSE_BUTTONS];
+	bool mouse[NUM_MOUSE_BUTTONS];
 	bool mouseButtonUp[NUM_MOUSE_BUTTONS];
 	bool mouseButtonDown[NUM_MOUSE_BUTTONS];
 
@@ -30,6 +30,11 @@ private:
 public:
 	InputSource(GLFWwindow *window = nullptr);
 	bool getKey(int i);
+	bool getKeyDown(int i);
+	bool getKeyUp(int i);
+	bool getMouse(int i);
+	bool getMouseDown(int i);
+	bool getMouseUp(int i);
 
 	void update();
 	
