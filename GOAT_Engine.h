@@ -1,10 +1,14 @@
 #pragma once
+//resource includes
 #include <iostream>
 #include <vector>
-
-#include "Input.h"
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+#include "glm/glm.hpp"
+#include "glm/gtc/matrix_transform.hpp"
+
+//goat engine headers
+#include "Input.h"
 #include "EngineTimer.h"
 #include "Graphics.h"
 #include "Texture.h"
@@ -16,7 +20,6 @@ private:
 
 	Renderer renderer;
 	Shader* shader;
-	Shader* shader2;
 
 	std::vector<Sprite*> sprites;
 	Texture* texture;

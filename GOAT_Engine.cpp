@@ -23,8 +23,8 @@ GOAT_Engine::GOAT_Engine(int w, int h, const char* title, unsigned int fps) {
 	}
 	/* Make the window's context current */
 	glfwMakeContextCurrent(windowTemp);
-	
-	
+	windowWidth = w;
+	windowHeight = h;
 
 	if (glewInit() != GLEW_OK) {
 		std::cout << "Error loading GLEW!" << std::endl;
@@ -38,9 +38,9 @@ GOAT_Engine::GOAT_Engine(int w, int h, const char* title, unsigned int fps) {
 	shader = new Shader("res/shaders/basic.shader");
 	shader->bind();
 	shader->setUniform4f("u_Color", 1.0f, 0.5f, 0.25f, 1.0f);
-	shader2 = new Shader("res/shaders/basic.shader");
-	shader2->bind();
-	shader2->setUniform4f("u_Color", 1.0f, 1.0f, 0.25f, 1.0f);
+
+	glm::mat4 proj = glm::ortho(-((float)windowWidth), (float)windowWidth, -((float)windowHeight), (float)windowHeight, -1.0f, 1.0f);
+	shader->setUniformMat4f("u_MVP", proj);
 
 	this->window = windowTemp;
 
@@ -53,7 +53,6 @@ GOAT_Engine::GOAT_Engine(int w, int h, const char* title, unsigned int fps) {
 
 GOAT_Engine::~GOAT_Engine() {
 	delete shader;
-	delete shader2;
 	delete texture;
 }
 
@@ -150,7 +149,11 @@ bool GOAT_Engine::shouldClose() {
 }
 
 void GOAT_Engine::terminate() {
+	std::cout << "hi ";
+	this->~GOAT_Engine();
+	std::cout << "there ";
 	glfwTerminate();
+	std::cout << "boys ";
  }
 
 InputSource& GOAT_Engine::getInput()
