@@ -74,11 +74,13 @@ void GOAT_Engine::draw() {
 		positions.push_back(0.0f);
 		positions.push_back(0.0f);
 
+
 		//index 1
 		positions.push_back(sprites[i]->x + sprites[i]->w);
 		positions.push_back(sprites[i]->y);
 		positions.push_back(1.0f);
 		positions.push_back(0.0f);
+
 
 		//index 2
 		positions.push_back(sprites[i]->x + sprites[i]->w);
@@ -86,11 +88,13 @@ void GOAT_Engine::draw() {
 		positions.push_back(1.0f);
 		positions.push_back(1.0f);
 
+
 		//index 3
 		positions.push_back(sprites[i]->x);
 		positions.push_back(sprites[i]->y + sprites[i]->h);
 		positions.push_back(0.0f);
 		positions.push_back(1.0f);
+
 
 		indices.push_back(i * 4 + 0);
 		indices.push_back(i * 4 + 1);
