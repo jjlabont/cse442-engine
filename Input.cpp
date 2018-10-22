@@ -18,7 +18,7 @@ InputSource::InputSource(GLFWwindow *window) {
 	}
 	for (int i = 0; i < NUM_KEYS; i++)
 	{
-		mousePressed[i] = false;
+		mouse[i] = false;
 		mouseButtonUp[i] = false;
 		mouseButtonDown[i] = false;
 
@@ -43,20 +43,19 @@ void InputSource::update() {
 
 		key[i] = glfwGetKey(window, i);
 
-		if (!mousePressed[i] && glfwGetMouseButton(window, i))
+		if (!mouse[i] && glfwGetMouseButton(window, i))
 		{
-			mousePressed[i] = true;
+			mouse[i] = true;
 		}
 		else
 			mouseButtonDown[i] = false;
 
-		if (mousePressed[i] && !glfwGetMouseButton(window, i))
+		if (mouse[i] && !glfwGetMouseButton(window, i))
 			mouseButtonUp[i] = true;
 		else
 			mouseButtonUp[i] = false;
 
-		if (glfwGetMouseButton(window, i))
-			mousePressed[i] = false;
+		mouse[i] = glfwGetMouseButton(window, i);
 
 		window = windowTemp;
 	}
@@ -65,4 +64,29 @@ void InputSource::update() {
 bool InputSource::getKey(int i)
 {
 	return key[i];
+}
+
+bool InputSource::getKeyDown(int i)
+{
+	return keyDown[i];
+}
+
+bool InputSource::getKeyUp(int i)
+{
+	return keyUp[i];
+}
+
+bool InputSource::getMouse(int i)
+{
+	return mouse[i];
+}
+
+bool InputSource::getMouseDown(int i)
+{
+	return mouseButtonDown[i];
+}
+
+bool InputSource::getMouseUp(int i)
+{
+	return mouseButtonUp[i];
 }
