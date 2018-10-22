@@ -45,14 +45,13 @@ GOAT_Engine::~GOAT_Engine() {
 	delete shader;
 }
 
-//displays FPS to console
-void GOAT_Engine::showFPS() {
-	timer.showFPS();
-}
-
 //sets FPS for game to run at
 void GOAT_Engine::setFPS(unsigned int fps) {
 	timer.setFPS(fps);
+}
+
+void GOAT_Engine::toggleDebug() {
+	timer.toggleDebug();
 }
 
 void GOAT_Engine::draw() {
@@ -108,7 +107,7 @@ void GOAT_Engine::draw() {
 	/* Poll for and process events */
 	glfwPollEvents();
 
-	timer.update();
+	timer.update(sprites.size());
 }
 
 void GOAT_Engine::addSprite(Sprite* sprite) {

@@ -1,32 +1,56 @@
 #include "EngineTimer.h"
 
 EngineTimer::EngineTimer(unsigned int fps) {
-	FPS = fps;
-} 
+	if (fps <= 0) {
+		//Change to error stack
+		std::cout << "Invalid FPS entered, defaulting to 60FPS" << std::endl;
+		FPS = 60;
+
+	}
+	else {
+		FPS = fps;
+	}
+
+	inGameTimeElapsed = Time();
+	realTimeElapsed = Time();
+}
 
 EngineTimer::~EngineTimer() {
 
 }
 
 //updates the timer
-void EngineTimer::update() {
+void EngineTimer::update(unsigned int numSprites) {
+	numSpritesDrawn = numSprites;
 	updateIGT();
 	updateRealTime();
 	limitFPS();
-	showFPS();
+	printDebugMsg();
 }
 
 void EngineTimer::updateIGT() {
-	// TODO
-}
-
-//toggles if FPS is being displayed
-void EngineTimer::toggleFPSDisplay() {
-	FPSCounterEnabled = !FPSCounterEnabled;
+	inGameTimer += 1.0 / FPS;
+	if (inGameTimer >= 60) {
+		inGameTimer = inGameTimer - 60.0;
+		inGameTimeElapsed.mins += 1;
+		if (inGameTimeElapsed.mins >= 60) {
+			inGameTimeElapsed.mins -= 60;
+			inGameTimeElapsed.hours += 1;
+		}
+	}
 }
 
 void EngineTimer::updateRealTime() {
-	//TODO
+	realTimeTimer = glfwGetTime();
+	int hours = 0;
+	int mins = (realTimeTimer - (hours * 3600) / 60);
+	int secs;
+	//std::cout << realTimeElapsed << std::endl;
+}
+
+//toggles if FPS is being displayed
+void EngineTimer::toggleDebug() {
+	debugEnabled = !debugEnabled;
 }
 
 
@@ -35,18 +59,28 @@ Calculates number of frames per second (FPS) and milliseconds per frame (ms/fram
 and ouputs them to console
 16.6 ms/frame is about 60fps
 */
-void EngineTimer::showFPS() {
-	if (FPSCounterEnabled) {
+void EngineTimer::printDebugMsg() {
+	if (debugEnabled) {
 		double currentTime = glfwGetTime();
 		double delta = currentTime - lastTime; //delta is change in time
 		numFrames++;// increment frames 
 		if (delta >= 1.0) { // If last cout was more than 1 sec ago
-
-			std::cout << "ms/frame: " << 1000.0 / double(numFrames) << std::endl;
+			std::string printStr = "";
+			printStr += "------------------------------------------------------\n";
+			printStr += "DEBUG\n";
+			printStr += "------------------------------------------------------\n";
 			double fps = double(numFrames) / delta;
-			std::cout << "FPS: " << fps << std::endl;
-			numFrames = 0;
+			printStr += "FPS: " + std::to_string(fps) + "\n";
+			printStr += "[GAME TIMER] Elapsed (s): " + std::to_string(inGameTimer) +"\n";
+			printStr += "NUM SPRITES: " + std::to_string(numSpritesDrawn) + "\n";
+			printStr += "[NO ERRORS REPORTED]\n";
+			//print final string
+			system("cls");
+			std::cout << printStr << std::endl;
+
+			//maintain loop
 			lastTime = currentTime;
+			numFrames = 0;
 		}
 	}
 }
