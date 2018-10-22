@@ -1,12 +1,17 @@
 #pragma once
+//resource includes
 #include <iostream>
 #include <vector>
-
-#include "Input.h"
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+#include "glm/glm.hpp"
+#include "glm/gtc/matrix_transform.hpp"
+
+//goat engine headers
+#include "Input.h"
 #include "EngineTimer.h"
 #include "Graphics.h"
+#include "Texture.h"
 
 class GOAT_Engine {
 private:
@@ -15,9 +20,10 @@ private:
 
 	Renderer renderer;
 	Shader* shader;
-	Shader* shader2;
 
 	std::vector<Sprite*> sprites;
+	Texture* texture;
+
 	unsigned int windowWidth;
 	unsigned int windowHeight;
 	InputSource input;
@@ -26,7 +32,7 @@ public:
 
 	GOAT_Engine(int w, int h, const char* title, unsigned int fps = 60);
 	~GOAT_Engine();
-
+	
 	void showFPS();
 	void setFPS(unsigned int fps);
 
