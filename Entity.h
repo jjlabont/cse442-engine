@@ -1,17 +1,19 @@
 #pragma once
 #include <tuple>
+#include "Graphics.h"
 
 class Entity {
 private:
-	
 
 public:
-	float xPosition;
-	float yPosition;
-	float width;
-	float height;
+	Sprite sprite;
+	float xPos;
+	float yPos;
+	float wPos;
+	float hPos;
+	float clayer;
+	bool isSolid;
 
-	Entity(float xPos, float yPos, float w, float h);
-	~Entity();
+	Entity(Sprite sprite, float clayer, bool isSolid);
 
 };
