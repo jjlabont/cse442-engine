@@ -8,8 +8,6 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
-
-
 class InputSource {
 private:
 	const static int NUM_KEYS = 512;

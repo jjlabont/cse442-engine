@@ -8,10 +8,10 @@
 #include "glm/gtc/matrix_transform.hpp"
 
 //goat engine headers
-#include "Input.h"
-#include "EngineTimer.h"
-#include "Graphics.h"
-#include "Texture.h"
+#include "Input/Input.h"
+#include "Util/EngineTimer.h"
+#include "Graphics/Graphics.h"
+#include "Graphics/Texture/Texture.h"
 
 class GOAT_Engine {
 private:

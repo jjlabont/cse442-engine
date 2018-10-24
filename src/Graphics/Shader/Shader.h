@@ -6,7 +6,7 @@
 
 #include "glm/glm.hpp"
 
-#include "OpenGLErrorHandling.h"
+#include "Util/OpenGLErrorHandling.h"
 
 struct ShaderProgramSource {
 	std::string VertexSource;
