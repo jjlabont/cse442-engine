@@ -10,22 +10,10 @@
 
 #include "Util/OpenGLErrorHandling.h"
 #include "Graphics/Shader/Shader.h"
+#include "Graphics/Sprite/Sprite.h"
 
 unsigned int compileShader(unsigned int type, const std::string& source);
 unsigned int CreateShader(const std::string& vertexShader, const std::string& fragmentShader);
-
-struct Sprite {
-	Sprite(float x, float y, float w, float h) {
-		this->x = x;
-		this->y = y;
-		this->w = w;
-		this->h = h;
-		
-		rotation = 0;
-	}
-	float x, y, w, h;
-	float rotation;
-};
 
 class VertexBuffer {
 private:

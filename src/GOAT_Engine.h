@@ -14,6 +14,7 @@
 #include "Util/EngineTimer.h"
 #include "Graphics/Graphics.h"
 #include "Graphics/Texture/Texture.h"
+#include "Objects/Entity/Entity.h"
 
 class GOAT_Engine {
 private:
@@ -28,6 +29,7 @@ private:
 	Shader* shader;
 
 	std::vector<Sprite*> sprites;
+	std::vector<Entity*> entities;
 	Texture* texture;
 
 	unsigned int windowWidth;
@@ -45,6 +47,7 @@ public:
 
 	void draw();
 	void addSprite(Sprite* sprite);
+	void addEntity(Entity* entity);
 
 	void pollEvents();
 

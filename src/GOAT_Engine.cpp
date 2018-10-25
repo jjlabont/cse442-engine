@@ -174,6 +174,10 @@ void GOAT_Engine::addSprite(Sprite* sprite) {
 	sprites.push_back(sprite);
 }
 
+void GOAT_Engine::addEntity(Entity* entity) {
+	entities.push_back(entity);
+}
+
 void GOAT_Engine::pollEvents() {
 	input.update();
 }
