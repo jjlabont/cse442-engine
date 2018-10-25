@@ -16,7 +16,7 @@ InputSource::InputSource(GLFWwindow *window) {
 		keyDown[i] = false;
 
 	}
-	for (int i = 0; i < NUM_KEYS; i++)
+	for (int i = 0; i < NUM_MOUSE_BUTTONS; i++)
 	{
 		mouse[i] = false;
 		mouseButtonUp[i] = false;

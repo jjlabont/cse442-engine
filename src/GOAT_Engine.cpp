@@ -25,6 +25,15 @@ GOAT_Engine::GOAT_Engine(int w, int h, const char* title, unsigned int fps) {
 	glfwMakeContextCurrent(windowTemp);
 	windowWidth = w;
 	windowHeight = h;
+	this->window = windowTemp;
+
+	ImGui::CreateContext();
+	ImGui_ImplGlfwGL3_Init(window, true);
+	ImGui::StyleColorsDark();
+
+	show_demo_window = true;
+	show_another_window = false;
+	clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 
 	if (glewInit() != GLEW_OK) {
 		std::cout << "Error loading GLEW!" << std::endl;
@@ -35,14 +44,18 @@ GOAT_Engine::GOAT_Engine(int w, int h, const char* title, unsigned int fps) {
 	GLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
 
 	renderer = Renderer();
+
 	shader = new Shader("res/shaders/basic.shader");
+	
 	shader->bind();
 	shader->setUniform4f("u_Color", 1.0f, 0.5f, 0.25f, 1.0f);
 
-	glm::mat4 proj = glm::ortho(-((float)windowWidth), (float)windowWidth, -((float)windowHeight), (float)windowHeight, -1.0f, 1.0f);
-	shader->setUniformMat4f("u_MVP", proj);
+	glm::mat4 proj = glm::ortho(0.0f, (float)windowWidth, 0.0f, (float)windowHeight, -1.0f, 1.0f);
+	glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(((float)windowWidth) / 2, ((float)windowHeight) / 2, 0));
+	glm::mat4 model = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0));
+	glm::mat4 mvp = proj * view * model;
 
-	this->window = windowTemp;
+	shader->setUniformMat4f("u_MVP", mvp);
 
 	texture = new Texture("res/images/cool uni.png");
 	texture->bind();
@@ -54,6 +67,9 @@ GOAT_Engine::GOAT_Engine(int w, int h, const char* title, unsigned int fps) {
 GOAT_Engine::~GOAT_Engine() {
 	delete shader;
 	delete texture;
+
+	ImGui_ImplGlfwGL3_Shutdown();
+	ImGui::DestroyContext();
 }
 
 //sets FPS for game to run at
@@ -66,6 +82,7 @@ void GOAT_Engine::toggleDebug() {
 }
 
 void GOAT_Engine::draw() {
+
 	if (sprites.size() == 0) {
 		renderer.clear();
 		glfwSwapBuffers(window);
@@ -130,8 +147,20 @@ void GOAT_Engine::draw() {
 
 	renderer.clear();
 
+	//start imgui
+	ImGui_ImplGlfwGL3_NewFrame();
+
 	renderer.draw(va, ib, *shader);
+
+	//do imgui stuff
+	{
+		//ImGui::SliderFloat("float", &x, 0.0f, 960.0f);            // Edit 1 float using a slider from 0.0f to 1.0f    
+		//ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+	}
 	
+	ImGui::Render();
+	ImGui_ImplGlfwGL3_RenderDrawData(ImGui::GetDrawData());
+
 	/* Swap front and back buffers */
 	glfwSwapBuffers(window);
 

@@ -6,6 +6,8 @@
 #include <GLFW/glfw3.h>
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
+#include "imgui/imgui.h"
+#include "imgui/imgui_impl_glfw_gl3.h"
 
 //goat engine headers
 #include "Input/Input.h"
@@ -15,6 +17,10 @@
 
 class GOAT_Engine {
 private:
+	bool show_demo_window;
+	bool show_another_window;
+	ImVec4 clear_color;
+
 	GLFWwindow* window;
 	EngineTimer timer;
 
