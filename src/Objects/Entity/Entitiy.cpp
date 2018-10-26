@@ -1,12 +1,19 @@
 #include "Entity.h"
 
-Entity::Entity(Sprite sprite) : sprite(sprite), speed(0.0f, 0.0f) {
+Entity::Entity(std::string name, Sprite sprite) : name(name), sprite(sprite), speed(0.0f, 0.0f) {
 }
 
 Entity::~Entity() {
 
 }
 
+std::string Entity::getName() const {
+	return name;
+}
+
+///////////////////////////////////////////////////////////////////////////////
+//POSITION/SIZE
+///////////////////////////////////////////////////////////////////////////////
 void Entity::setX(float x) {
 	sprite.body.x = x;
 }
@@ -39,13 +46,36 @@ float Entity::getH() const {
 	return sprite.body.h;
 }
 
-void Entity::setRot(float r) {
-	sprite.rot = r;
+///////////////////////////////////////////////////////////////////////////////
+//MOVEMENT
+///////////////////////////////////////////////////////////////////////////////
+void Entity::setRotX(float x) {
+	sprite.rot.x = x;
 }
 
-float Entity::getRot() const {
-	return sprite.rot;
+float Entity::getRotX() const {
+	return sprite.rot.x;
 }
+
+void Entity::setRotY(float y) {
+	sprite.rot.y = y;
+}
+
+float Entity::getRotY() const {
+	return sprite.rot.y;
+}
+
+void Entity::setRotZ(float z) {
+	sprite.rot.z = z;
+}
+
+float Entity::getRotZ() const {
+	return sprite.rot.z;
+}
+
+///////////////////////////////////////////////////////////////////////////////
+//MOVEMENT
+///////////////////////////////////////////////////////////////////////////////
 
 void Entity::setSpeed(goat::vec2 s) {
 	speed.x = s.x;
@@ -54,4 +84,39 @@ void Entity::setSpeed(goat::vec2 s) {
 
 goat::vec2 Entity::getSpeed() const {
 	return speed;
+}
+
+///////////////////////////////////////////////////////////////////////////////
+//TEX COORDS
+///////////////////////////////////////////////////////////////////////////////
+void Entity::setTexCoordsX(float x) {
+	sprite.texCoords.x = x;
+}
+
+float Entity::getTexCoordsX() const {
+	return sprite.texCoords.x;
+}
+
+void Entity::setTexCoordsY(float y) {
+	sprite.texCoords.y = y;
+}
+
+float Entity::getTexCoordsY() const {
+	return sprite.texCoords.y;
+}
+
+void Entity::setTexCoordsW(float w) {
+	sprite.texCoords.w = w;
+}
+
+float Entity::getTexCoordsW() const {
+	return sprite.texCoords.w;
+}
+
+void Entity::setTexCoordsH(float h) {
+	sprite.texCoords.h = h;
+}
+
+float Entity::getTexCoordsH() const {
+	return sprite.texCoords.h;
 }

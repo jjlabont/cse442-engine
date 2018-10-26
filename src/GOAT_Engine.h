@@ -2,6 +2,7 @@
 //resource includes
 #include <iostream>
 #include <vector>
+#include <unordered_map>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include "glm/glm.hpp"
@@ -28,8 +29,7 @@ private:
 	Renderer renderer;
 	Shader* shader;
 
-	std::vector<Sprite*> sprites;
-	std::vector<Entity*> entities;
+	std::unordered_map<std::string, Entity*> entities;
 	Texture* texture;
 
 	unsigned int windowWidth;
@@ -46,8 +46,8 @@ public:
 	void setFPS(unsigned int fps);
 
 	void draw();
-	void addSprite(Sprite* sprite);
 	void addEntity(Entity* entity);
+	void removeEntity(std::string name);
 
 	void pollEvents();
 

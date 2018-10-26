@@ -10,6 +10,15 @@ namespace goat {
 		vec2(float x, float y) : x(x), y(y) {}
 	};
 
+	struct vec3 {
+		float x;
+		float y;
+		float z;
+
+		vec3() : x(0.0f), y(0.0f), z(0.0f) {}
+		vec3(float x, float y, float z) : x(x), y(y), z(z) {}
+	};
+
 	struct Shape {
 
 	};

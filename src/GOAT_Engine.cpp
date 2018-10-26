@@ -83,7 +83,7 @@ void GOAT_Engine::toggleDebug() {
 
 void GOAT_Engine::draw() {
 
-	if (sprites.size() == 0) {
+	if (entities.size() == 0) {
 		renderer.clear();
 		glfwSwapBuffers(window);
 		glfwPollEvents();
@@ -91,41 +91,102 @@ void GOAT_Engine::draw() {
 	}
 	std::vector<float> positions;
 	std::vector<unsigned int> indices;
-	for (int i = 0; i < sprites.size(); i++) {
-		//index 0
-		positions.push_back(sprites[i]->x);
-		positions.push_back(sprites[i]->y);
+	int i = 0;
+	for (std::pair<std::string, Entity*> ePair: entities) {
+		//get entity for this iteration
+		Entity* e = ePair.second;
+
+		glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(e->getW(), e->getH(), 0));
+		glm::mat4 translation = glm::translate(glm::mat4(1.0f), glm::vec3(((float)windowWidth) / 2, ((float)windowHeight) / 2, 0));
+		glm::mat4 rotation = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0));
+		glm::mat4 transform = rotation * translation * scale;
+
+		//vertex 0
+		/////////////////////////////////////////////////////
+		//position
+		positions.push_back(-0.5f);
+		positions.push_back(-0.5f);
+		//texCoord
+		positions.push_back(e->getTexCoordsX());
+		positions.push_back(e->getTexCoordsY());
+		//rotation
+		positions.push_back(e->getRotX());
+		positions.push_back(e->getRotY());
+		positions.push_back(e->getRotZ());
+		//scale
+		positions.push_back(e->getW());
+		positions.push_back(e->getH());
+		//translation
+		positions.push_back(e->getX());
+		positions.push_back(e->getY());
+
+		//vertex 1
+		/////////////////////////////////////////////////////
+		//positions
+		positions.push_back(0.5f);
 		positions.push_back(0.0f);
-		positions.push_back(0.0f);
+		//texCoords
+		positions.push_back(e->getTexCoordsX() + e->getTexCoordsW());
+		positions.push_back(e->getTexCoordsY());
+		//rotation
+		positions.push_back(e->getRotX());
+		positions.push_back(e->getRotY());
+		positions.push_back(e->getRotZ());
+		//scale
+		positions.push_back(e->getW());
+		positions.push_back(e->getH());
+		//translation
+		positions.push_back(e->getX());
+		positions.push_back(e->getY());
 
+		//vertex 2
+		/////////////////////////////////////////////////////
+		//positions
+		positions.push_back(0.5f);
+		positions.push_back(0.5f);
+		//texCoords
+		positions.push_back(e->getTexCoordsX() + e->getTexCoordsW());
+		positions.push_back(e->getTexCoordsY() + e->getTexCoordsH());
+		//rotation
+		positions.push_back(e->getRotX());
+		positions.push_back(e->getRotY());
+		positions.push_back(e->getRotZ());
+		//scale
+		positions.push_back(e->getW());
+		positions.push_back(e->getH());
+		//translation
+		positions.push_back(e->getX());
+		positions.push_back(e->getY());
 
-		//index 1
-		positions.push_back(sprites[i]->x + sprites[i]->w);
-		positions.push_back(sprites[i]->y);
-		positions.push_back(1.0f);
-		positions.push_back(0.0f);
+		//vertex 3
+		/////////////////////////////////////////////////////
+		//positions
+		positions.push_back(-0.5f);
+		positions.push_back(0.5f);
+		//texCoords
+		positions.push_back(e->getTexCoordsX());
+		positions.push_back(e->getTexCoordsY() + e->getTexCoordsH());
+		//rotation
+		positions.push_back(e->getRotX());
+		positions.push_back(e->getRotY());
+		positions.push_back(e->getRotZ());
+		//scale
+		positions.push_back(e->getW());
+		positions.push_back(e->getH());
+		//translation
+		positions.push_back(e->getX());
+		positions.push_back(e->getY());
 
-
-		//index 2
-		positions.push_back(sprites[i]->x + sprites[i]->w);
-		positions.push_back(sprites[i]->y + sprites[i]->h);
-		positions.push_back(1.0f);
-		positions.push_back(1.0f);
-
-
-		//index 3
-		positions.push_back(sprites[i]->x);
-		positions.push_back(sprites[i]->y + sprites[i]->h);
-		positions.push_back(0.0f);
-		positions.push_back(1.0f);
-
-
+		//IBO indices
+		/////////////////////////////////////////////////////
 		indices.push_back(i * 4 + 0);
 		indices.push_back(i * 4 + 1);
 		indices.push_back(i * 4 + 2);
 		indices.push_back(i * 4 + 2);
 		indices.push_back(i * 4 + 3);
 		indices.push_back(i * 4 + 0);
+
+		i++;
 	}
 
 	VertexArray va;
@@ -136,14 +197,17 @@ void GOAT_Engine::draw() {
 		D = # of sprites
 		size = ABCD
 	*/
-	VertexBuffer vb(&positions[0], 4 * 4 * sizeof(float) * sprites.size());
+	VertexBuffer vb(&positions[0], 4 * 9 * sizeof(float) * entities.size());
 
 	VertexBufferLayout layout;
-	layout.push<float>(2);
-	layout.push<float>(2);
+	layout.push<float>(2);	//positions
+	layout.push<float>(2);	//texCoords
+	layout.push<float>(3);	//rotation
+	layout.push<float>(2);	//scale
+	layout.push<float>(2);  //translation
 	va.addBuffer(vb, layout);
 
-	IndexBuffer ib(&indices[0], 6 * sprites.size());
+	IndexBuffer ib(&indices[0], 6 * entities.size());
 
 	renderer.clear();
 
@@ -167,15 +231,15 @@ void GOAT_Engine::draw() {
 	/* Poll for and process events */
 	glfwPollEvents();
 
-	timer.update(sprites.size());
-}
-
-void GOAT_Engine::addSprite(Sprite* sprite) {
-	sprites.push_back(sprite);
+	timer.update(entities.size());
 }
 
 void GOAT_Engine::addEntity(Entity* entity) {
-	entities.push_back(entity);
+	entities[entity->getName()] = entity;
+}
+
+void GOAT_Engine::removeEntity(std::string name) {
+	entities.erase(name);
 }
 
 void GOAT_Engine::pollEvents() {
