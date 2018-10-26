@@ -3,6 +3,9 @@
 Entity::Entity(std::string name, Sprite sprite) : name(name), sprite(sprite), speed(0.0f, 0.0f) {
 }
 
+Entity::Entity(const Entity& e) : name(e.name), sprite(e.sprite), speed(e.speed) {
+}
+
 Entity::~Entity() {
 
 }
@@ -120,3 +123,10 @@ void Entity::setTexCoordsH(float h) {
 float Entity::getTexCoordsH() const {
 	return sprite.texCoords.h;
 }
+
+///////////////////////////////////////////////////////////////////////////////
+//OPERATORS
+///////////////////////////////////////////////////////////////////////////////
+/*Entity& operator=(Entity e) {
+	Entity r = Entity()
+}*/

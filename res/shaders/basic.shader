@@ -37,14 +37,15 @@ vec4 rotate(vec4 v, vec3 axis, float angle) {
 
 void main()
 {
-	vec4 modded = vec4(position.x * scale.x,
-					   position.y * scale.y,
-					   position.z, 
-					   position.w);
-	//modded = rotate(modded, vec3(1, 0, 0), rot.x);
-	//modded = rotate(modded, vec3(0, 1, 0), rot.y);
-	//modded = rotate(modded, vec3(0, 0, 1), rot.z);
+	vec4 modded = position;
+	modded = rotate(modded, vec3(1, 0, 0), rot.x);
+	modded = rotate(modded, vec3(0, 1, 0), rot.y);
+	modded = rotate(modded, vec3(0, 0, 1), rot.z);
 
+	modded = vec4(modded.x * scale.x + translate.x,
+				  modded.y * scale.y + translate.y,
+				  modded.z,
+				  modded.w);
 	gl_Position = u_MVP * modded;
 	v_TexCoord = texCoord;
 };

@@ -14,6 +14,7 @@ private:
 public:
 
 	Entity(std::string name, Sprite sprite);
+	Entity(const Entity& e);
 	~Entity();
 
 	//implementable functions
@@ -49,4 +50,7 @@ public:
 	//movement
 	void setSpeed(goat::vec2 speed);
 	goat::vec2 getSpeed() const;
+
+	//operators
+	//Entity& operator=(Entity e);
 };

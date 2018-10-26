@@ -90,16 +90,13 @@ void GOAT_Engine::draw() {
 		return;
 	}
 	std::vector<float> positions;
+	positions.reserve(4 * 11 * entities.size());
 	std::vector<unsigned int> indices;
+	indices.reserve(6 * entities.size());
 	int i = 0;
 	for (std::pair<std::string, Entity*> ePair: entities) {
 		//get entity for this iteration
 		Entity* e = ePair.second;
-
-		glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(e->getW(), e->getH(), 0));
-		glm::mat4 translation = glm::translate(glm::mat4(1.0f), glm::vec3(((float)windowWidth) / 2, ((float)windowHeight) / 2, 0));
-		glm::mat4 rotation = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0));
-		glm::mat4 transform = rotation * translation * scale;
 
 		//vertex 0
 		/////////////////////////////////////////////////////
@@ -124,7 +121,7 @@ void GOAT_Engine::draw() {
 		/////////////////////////////////////////////////////
 		//positions
 		positions.push_back(0.5f);
-		positions.push_back(0.0f);
+		positions.push_back(-0.5f);
 		//texCoords
 		positions.push_back(e->getTexCoordsX() + e->getTexCoordsW());
 		positions.push_back(e->getTexCoordsY());
@@ -197,7 +194,7 @@ void GOAT_Engine::draw() {
 		D = # of sprites
 		size = ABCD
 	*/
-	VertexBuffer vb(&positions[0], 4 * 9 * sizeof(float) * entities.size());
+	VertexBuffer vb(&positions[0], 4 * 11 * sizeof(float) * entities.size());
 
 	VertexBufferLayout layout;
 	layout.push<float>(2);	//positions
