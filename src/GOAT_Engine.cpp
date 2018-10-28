@@ -94,7 +94,7 @@ void GOAT_Engine::draw() {
 	std::vector<unsigned int> indices;
 	indices.reserve(6 * entities.size());
 	int i = 0;
-	for (std::pair<std::string, Entity*> ePair: entities) {
+	for (std::pair<std::string, Entity*> ePair : entities) {
 		//get entity for this iteration
 		Entity* e = ePair.second;
 
@@ -185,7 +185,6 @@ void GOAT_Engine::draw() {
 
 		i++;
 	}
-
 	VertexArray va;
 	/*
 		A = # of indices per sprite

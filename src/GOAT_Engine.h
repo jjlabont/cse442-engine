@@ -35,9 +35,8 @@ private:
 	unsigned int windowWidth;
 	unsigned int windowHeight;
 	InputSource input;
+
 public:
-
-
 	GOAT_Engine(int w, int h, const char* title, unsigned int fps = 60);
 	~GOAT_Engine();
 

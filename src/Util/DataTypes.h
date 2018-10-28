@@ -1,4 +1,6 @@
 #pragma once
+#include <vector>
+#include <unordered_map>
 
 namespace goat {
 
@@ -61,6 +63,51 @@ namespace goat {
 			g = c.g;
 			b = c.b;
 			a = c.a;
+		}
+	};
+
+	struct VertexData {
+	private:
+		std::vector<float*> data;
+		std::vector<int> open;
+		std::unordered_map<std::string, int> key;
+		int count;
+		int size;
+
+		int span;
+
+		void cleanUp() {
+
+		}
+
+	public:
+		VertexData(int span) : count(0), span(span) { }
+		~VertexData() { }
+
+		void addData(std::string name, std::vector<float*> d) {
+			//location to fill
+			int l = data.size() / span;
+			if (open.size() > 0) {
+				l = open.back();
+				open.pop_back();
+
+				for (int i = 0; i < d.size(); i++) {
+					data[i + span * l] = d[i];
+				}
+			}
+			else {
+				for (int i = 0; i < d.size(); i++) {
+					data.push_back(d[i]);
+				}
+			}
+		}
+		void removeData(std::string name) { }
+
+		const void* getData() {
+			if (count == 0) {
+				return nullptr;
+			}
+			return &data[0];
 		}
 	};
 }

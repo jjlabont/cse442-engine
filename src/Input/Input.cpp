@@ -42,7 +42,10 @@ void InputSource::update() {
 			keyUp[i] = false;
 
 		key[i] = glfwGetKey(window, i);
+	}
 
+	for (int i = 0; i < NUM_MOUSE_BUTTONS; i++) {
+		GLFWwindow* windowTemp = window;
 		if (!mouse[i] && glfwGetMouseButton(window, i))
 		{
 			mouse[i] = true;
@@ -56,9 +59,9 @@ void InputSource::update() {
 			mouseButtonUp[i] = false;
 
 		mouse[i] = glfwGetMouseButton(window, i);
-
 		window = windowTemp;
 	}
+
 }
 
 bool InputSource::getKey(int i)
