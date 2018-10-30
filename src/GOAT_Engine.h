@@ -30,6 +30,8 @@ private:
 	Shader* shader;
 
 	std::unordered_map<std::string, Entity*> entities;
+	//goat::VertexData data;
+
 	Texture* texture;
 
 	unsigned int windowWidth;

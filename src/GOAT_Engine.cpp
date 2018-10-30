@@ -97,7 +97,7 @@ void GOAT_Engine::draw() {
 	for (std::pair<std::string, Entity*> ePair : entities) {
 		//get entity for this iteration
 		Entity* e = ePair.second;
-
+		//e->updateVertexData();
 		//vertex 0
 		/////////////////////////////////////////////////////
 		//position
@@ -232,10 +232,21 @@ void GOAT_Engine::draw() {
 
 void GOAT_Engine::addEntity(Entity* entity) {
 	entities[entity->getName()] = entity;
+
+	//new stuff
+	/*data.addData(entity->getName() + "_1", std::vector<float>{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 });
+	data.addData(entity->getName() + "_2", std::vector<float>{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 });
+	data.addData(entity->getName() + "_3", std::vector<float>{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 });
+	data.addData(entity->getName() + "_4", std::vector<float>{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 });*/
 }
 
 void GOAT_Engine::removeEntity(std::string name) {
 	entities.erase(name);
+
+	/*data.removeData(name + "_1");
+	data.removeData(name + "_2");
+	data.removeData(name + "_3");
+	data.removeData(name + "_4");*/
 }
 
 void GOAT_Engine::pollEvents() {

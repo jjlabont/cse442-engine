@@ -51,6 +51,9 @@ public:
 	void setSpeed(goat::vec2 speed);
 	goat::vec2 getSpeed() const;
 
+	//rendering
+	void updateVertexData();
+
 	//operators
 	//Entity& operator=(Entity e);
 };
