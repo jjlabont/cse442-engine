@@ -51,9 +51,8 @@ namespace goat {
 
 	}
 
-	//TODO:
 	std::pair<const void*, const unsigned int*> VertexData::getData() {
-
+		return std::pair<const void*, const unsigned int*>(&data[0], &indices[0]);
 	}
 
 	//TODO:

@@ -69,9 +69,8 @@ namespace goat {
 	};
 
 	/*
-		Brief : maintains vertex data for a set of entities
-
-		Details :
+		Brief	: maintains vertex data for a set of entities
+		Details	: The goal of VertexData is to make it possible for
 	*/
 	class VertexData {
 	private:
@@ -97,7 +96,11 @@ namespace goat {
 					A start position is given as (key[name][i] * span)
 		*/
 		std::unordered_map<std::string, std::vector<int>> key;
-
+		/*
+			Brief : vector of cross reference values that point at the pointers
+					in each entity. For when data vector is remade & the addresses change
+		*/
+		std::vector<std::pair<int, float**>> crossReference;
 
 
 		/*
