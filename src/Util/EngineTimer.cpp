@@ -30,14 +30,6 @@ void EngineTimer::update(unsigned int numSprites) {
 
 void EngineTimer::updateIGT() {
 	inGameTimer += 1.0 / FPS;
-	if (inGameTimer >= 60) {
-		inGameTimer = inGameTimer - 60.0;
-		inGameTimeElapsed.mins += 1;
-		if (inGameTimeElapsed.mins >= 60) {
-			inGameTimeElapsed.mins -= 60;
-			inGameTimeElapsed.hours += 1;
-		}
-	}
 }
 
 void EngineTimer::updateRealTime() {
