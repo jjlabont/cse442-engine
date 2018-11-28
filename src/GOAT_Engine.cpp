@@ -87,6 +87,7 @@ void GOAT_Engine::draw() {
 		renderer.clear();
 		glfwSwapBuffers(window);
 		glfwPollEvents();
+		timer.update(entities.size());
 		return;
 	}
 	std::vector<float> positions;
