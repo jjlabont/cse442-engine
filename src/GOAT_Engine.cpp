@@ -208,11 +208,12 @@ void GOAT_Engine::draw() {
 	IndexBuffer ib(&indices[0], 6 * entities.size());
 
 	renderer.clear();
-
+	renderer.draw(va, ib, *shader);
+	if (timer.debugEnabled) {
 	//start imgui
 	ImGui_ImplGlfwGL3_NewFrame();
 
-	renderer.draw(va, ib, *shader);
+	
 
 	//do imgui stuff
 	{
@@ -235,10 +236,10 @@ void GOAT_Engine::draw() {
 		ImGui::Text("# of Entities: %d", counter);
 		ImGui::Text("Time Elapsed (s): %f", ImGui::GetTime());
 	}
-	
+
 	ImGui::Render();
 	ImGui_ImplGlfwGL3_RenderDrawData(ImGui::GetDrawData());
-
+}
 	/* Swap front and back buffers */
 	glfwSwapBuffers(window);
 

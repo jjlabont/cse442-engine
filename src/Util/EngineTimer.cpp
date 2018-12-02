@@ -22,10 +22,10 @@ EngineTimer::~EngineTimer() {
 //updates the timer
 void EngineTimer::update(unsigned int numSprites) {
 	numSpritesDrawn = numSprites;
-	updateIGT();
-	updateRealTime();
+	//updateIGT();
+	//updateRealTime();
 	limitFPS();
-	printDebugMsg();
+	//printDebugMsg();
 }
 
 void EngineTimer::updateIGT() {

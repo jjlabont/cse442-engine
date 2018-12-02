@@ -28,13 +28,14 @@ private:
 	Time realTimeElapsed;
 	double inGameTimer = 0;
 	double realTimeTimer = 0;
-	bool debugEnabled = 0;
+	
 	unsigned int numSpritesDrawn;
 
 	void limitFPS();
 	void printDebugMsg();
 
 public:
+	bool debugEnabled = false;
 	EngineTimer(unsigned int fps = 60);
 	~EngineTimer();
 
