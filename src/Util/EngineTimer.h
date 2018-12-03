@@ -19,7 +19,7 @@ struct Time {
 
 class EngineTimer {
 private:
-
+	double delta = 0;
 	double lastTime = 0; //last time since frame count initialized for frame counter
 	double nextFrameTime = 0; //time the next fame should be rendered at
 	double numFrames = 0; //number of frames
@@ -32,7 +32,7 @@ private:
 	unsigned int numSpritesDrawn;
 
 	void limitFPS();
-	void printDebugMsg();
+	void updateDelta();
 
 public:
 	bool debugEnabled = false;
@@ -41,6 +41,8 @@ public:
 
 	void setFPS(unsigned int fps);
 	void toggleDebug();
+
+	float getDelta();
 
 	void updateIGT();
 	void updateRealTime();
