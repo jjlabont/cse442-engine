@@ -3,7 +3,7 @@
 EngineTimer::EngineTimer(unsigned int fps) {
 	if (fps <= 0) {
 		//Change to error stack
-		std::cout << "Invalid FPS entered, defaulting to 60FPS" << std::endl;
+		//std::cout << "Invalid FPS entered, defaulting to 60FPS" << std::endl;
 		FPS = 60;
 
 	}
@@ -93,7 +93,7 @@ void EngineTimer::limitFPS() {
 void EngineTimer::setFPS(unsigned int fps) {
 	if (fps <= 0) {
 		//Change to error stack
-		std::cout << "Invalid FPS entered, defaulting to 60FPS" << std::endl;
+		//std::cout << "Invalid FPS entered, defaulting to 60FPS" << std::endl;
 		FPS = 60;
 
 	}
