@@ -1,9 +1,12 @@
 #include "Entity.h"
 
-Entity::Entity(std::string name, Sprite sprite) : name(name), sprite(sprite), speed(0.0f, 0.0f) {
+Entity::Entity(std::string name, Sprite sprite) :
+	name(name), sprite(sprite), speed(0.0f, 0.0f),
+	animation(Animation("", goat::Rect(0, 0, 1, 1), 1, 0 )) {
 }
 
-Entity::Entity(const Entity& e) : name(e.name), sprite(e.sprite), speed(e.speed) {
+Entity::Entity(const Entity& e) : animation(Animation("", goat::Rect(0, 0, 1, 1), 1, 0)) {
+	Entity(e.name, e.sprite);
 }
 
 Entity::~Entity() {
@@ -122,6 +125,29 @@ void Entity::setTexCoordsH(float h) {
 
 float Entity::getTexCoordsH() const {
 	return sprite.texCoords.h;
+}
+
+///////////////////////////////////////////////////////////////////////////////
+//ANIMATION
+///////////////////////////////////////////////////////////////////////////////
+
+void Entity::animateWithDelta(float d)
+{
+	animation.addTime(d);
+	sprite.texCoords.x = animation.GetX();
+}
+
+void Entity::setAnimation(Animation animation) {
+	sprite.texCoords.x = animation.GetX();
+	sprite.texCoords.y = animation.GetY();
+	sprite.texCoords.w = animation.GetW();
+	sprite.texCoords.h = animation.GetH();
+
+	this->animation = animation;
+}
+
+std::string Entity::getAnimationName() {
+	return animation.getName();
 }
 
 ///////////////////////////////////////////////////////////////////////////////
