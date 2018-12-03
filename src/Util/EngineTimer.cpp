@@ -22,10 +22,10 @@ EngineTimer::~EngineTimer() {
 //updates the timer
 void EngineTimer::update(unsigned int numSprites) {
 	numSpritesDrawn = numSprites;
-	updateIGT();
-	updateRealTime();
+	//updateIGT();
+	//updateRealTime();
 	limitFPS();
-	printDebugMsg();
+	updateDelta();
 }
 
 void EngineTimer::updateIGT() {
@@ -51,30 +51,10 @@ Calculates number of frames per second (FPS) and milliseconds per frame (ms/fram
 and ouputs them to console
 16.6 ms/frame is about 60fps
 */
-void EngineTimer::printDebugMsg() {
-	if (debugEnabled) {
+void EngineTimer::updateDelta() {
 		double currentTime = glfwGetTime();
-		double delta = currentTime - lastTime; //delta is change in time
-		numFrames++;// increment frames 
-		if (delta >= 1.0) { // If last cout was more than 1 sec ago
-			std::string printStr = "";
-			printStr += "------------------------------------------------------\n";
-			printStr += "DEBUG\n";
-			printStr += "------------------------------------------------------\n";
-			double fps = double(numFrames) / delta;
-			printStr += "FPS: " + std::to_string(fps) + "\n";
-			printStr += "[GAME TIMER] Elapsed (s): " + std::to_string(inGameTimer) +"\n";
-			printStr += "NUM SPRITES: " + std::to_string(numSpritesDrawn) + "\n";
-			printStr += "[NO ERRORS REPORTED]\n";
-			//print final string
-			system("cls");
-			std::cout << printStr << std::endl;
-
-			//maintain loop
-			lastTime = currentTime;
-			numFrames = 0;
-		}
-	}
+		delta = currentTime - lastTime; //delta is change in time
+		lastTime = currentTime;
 }
 
 //limits amount of fps
@@ -98,4 +78,8 @@ void EngineTimer::setFPS(unsigned int fps) {
 
 	}
 		FPS = fps;
+}
+
+float EngineTimer::getDelta() {
+	return (float)delta;
 }

@@ -16,6 +16,8 @@
 #include "Graphics/Graphics.h"
 #include "Graphics/Texture/Texture.h"
 #include "Objects/Entity/Entity.h"
+#include "Graphics\Animator\Animator.h"
+
 
 class GOAT_Engine {
 private:
@@ -28,6 +30,7 @@ private:
 
 	Renderer renderer;
 	Shader* shader;
+	Animator* animator;
 
 	std::unordered_map<std::string, Entity*> entities;
 	Texture* texture;

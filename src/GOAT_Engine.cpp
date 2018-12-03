@@ -57,11 +57,12 @@ GOAT_Engine::GOAT_Engine(int w, int h, const char* title, unsigned int fps) {
 
 	shader->setUniformMat4f("u_MVP", mvp);
 
-	texture = new Texture("res/images/cool uni.png");
+	texture = new Texture("res/images/blue_ninja.png");
 	texture->bind();
 	shader->setUniform1i("u_Texture", 0);
 
 	input = InputSource(window);
+	animator = new Animator(&entities);
 }
 
 GOAT_Engine::~GOAT_Engine() {
@@ -83,6 +84,7 @@ void GOAT_Engine::toggleDebug() {
 
 void GOAT_Engine::draw() {
 
+
 	if (entities.size() == 0) {
 		renderer.clear();
 		glfwSwapBuffers(window);
@@ -90,6 +92,9 @@ void GOAT_Engine::draw() {
 		timer.update(entities.size());
 		return;
 	}
+	//set animations for entitites
+	animator->animate(timer.getDelta());
+
 	std::vector<float> positions;
 	positions.reserve(4 * 11 * entities.size());
 	std::vector<unsigned int> indices;

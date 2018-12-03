@@ -3,14 +3,14 @@
 #include <string>
 #include "Graphics/Graphics.h"
 #include "Input/Input.h"
+#include "Graphics/Animator/Animation.h"
 
 class Entity {
 private:
 	std::string name;
-
+	Animation animation;
 	Sprite sprite;
 	goat::vec2 speed;
-
 public:
 
 	Entity(std::string name, Sprite sprite);
@@ -50,6 +50,11 @@ public:
 	//movement
 	void setSpeed(goat::vec2 speed);
 	goat::vec2 getSpeed() const;
+
+	//animation
+	void animateWithDelta(float d);
+	void setAnimation(Animation animation);
+	std::string getAnimationName();
 
 	//operators
 	//Entity& operator=(Entity e);
