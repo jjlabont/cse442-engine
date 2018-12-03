@@ -124,6 +124,35 @@ float Entity::getTexCoordsH() const {
 	return sprite.texCoords.h;
 }
 
+bool Entity::setCollisionX(bool b)
+{
+	return false;
+}
+
+bool Entity::getCollisionX() const
+{
+	return false;
+}
+
+bool Entity::setCollisionY(bool b)
+{
+	return false;
+}
+
+bool Entity::getCollisionY() const
+{
+	return false;
+}
+
+void Entity::moveX() {
+	int gX = getX();
+	gX += getSpeed().x;
+}
+void Entity::moveY() {
+	int gY = getY();
+	gY += getSpeed().y;
+}
+
 ///////////////////////////////////////////////////////////////////////////////
 //OPERATORS
 ///////////////////////////////////////////////////////////////////////////////

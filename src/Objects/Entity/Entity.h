@@ -12,7 +12,7 @@ private:
 	goat::vec2 speed;
 
 public:
-
+	//goat::vec2 speed;
 	Entity(std::string name, Sprite sprite);
 	Entity(const Entity& e);
 	~Entity();
@@ -47,9 +47,24 @@ public:
 	void setTexCoordsH(float h);
 	float getTexCoordsH() const;
 
+	//collision
+	bool setCollisionX(bool b);
+	bool getCollisionX() const;
+	bool setCollisionY(bool b);
+	bool getCollisionY() const;
+
+	bool topC = false;
+	bool botC = false;
+	bool leftC = false;
+	bool rightC = false;
+	bool collision = false;
+
 	//movement
 	void setSpeed(goat::vec2 speed);
 	goat::vec2 getSpeed() const;
+
+	void moveX();
+	void moveY();
 
 	//operators
 	//Entity& operator=(Entity e);
